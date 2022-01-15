@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Biblioteka_app.Models.AuthorModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista Autorów</h1>
+
+<p>
+    <a asp-action="Create">Dodaj Autora</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new {  id=item.AuthorId }) |
+                @Html.ActionLink("Szczegóły", "Details", new {  id=item.AuthorId}) |
+                @Html.ActionLink("Usuń", "Delete", new {  id=item.AuthorId})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
