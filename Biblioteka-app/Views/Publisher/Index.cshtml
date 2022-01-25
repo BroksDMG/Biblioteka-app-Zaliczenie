@@ -1,18 +1,17 @@
-﻿@model IEnumerable<Biblioteka_app.Models.AuthorModel>
+﻿@model IEnumerable<Biblioteka_app.Models.PublisherModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1 class=" display-3">Lista Autorów</h1>
+<h1 class=" display-3">Lista Wydawców</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Dodaj Autora</a>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
-        <tr>
-            
+        <tr>         
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -30,8 +29,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-           
+        <tr>          
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -45,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
             <td>
-                @Html.ActionLink("Szczegóły", "Details", new {  id=item.Id}, new { @class="btn btn-info"}) 
-                @Html.ActionLink("Edytuj", "Edit", new {  id=item.Id }, new { @class = "btn btn-warning" }) 
-                @Html.ActionLink("Usuń", "Delete", new {  id=item.Id}, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Edytuj", "Edit", new {  id=item.Id }, new { @class = "btn btn-info" }) 
+                @Html.ActionLink("Szczegóły", "Details", new {  id=item.Id }, new { @class = "btn btn-warning" }) 
+                @Html.ActionLink("Usuń", "Delete", new {  id=item.Id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
 }

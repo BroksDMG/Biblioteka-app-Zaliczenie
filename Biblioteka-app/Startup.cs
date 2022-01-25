@@ -1,5 +1,9 @@
+
+using Biblioteka_app.Data;
+using Biblioteka_app.Interfaces;
 using Biblioteka_app.Models;
 using Biblioteka_app.Repositories;
+using Biblioteka_app.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,9 +31,12 @@ namespace Biblioteka_app
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<AuthorManagerContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AuthorManagerDatabase")));
-            services.AddTransient<IAutorRepository, AuthorRepository>();
+            services.AddDbContext<LibraryManagerContext>(options1 =>
+                options1.UseSqlServer(Configuration.GetConnectionString("LibraryManagerDatabase")));
+            services.AddTransient<IAuthorsService, AuthorsService>();
+            services.AddTransient<IPublishersService, PublishersService>();
+            services.AddTransient<ICategoiresService, CategoriesService>();
+            services.AddTransient<IBookRepository, BookRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,7 +44,7 @@ namespace Biblioteka_app
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(); 
             }
             else
             {
@@ -58,6 +65,8 @@ namespace Biblioteka_app
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            //seed database
+            AppDbInitializer.Seed(app);
         }
     }
 }

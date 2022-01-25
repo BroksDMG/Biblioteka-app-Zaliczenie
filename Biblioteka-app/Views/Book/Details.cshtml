@@ -1,0 +1,56 @@
+﻿@model Biblioteka_app.Models.BookModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="display-3">Szczegóły</h1>
+
+<div>
+   
+    <hr />
+    <dl class="row">
+       
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BookName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BookName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Pages)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Pages)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Edition)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Edition)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cat_id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cat_id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.A_id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.A_id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.P_id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.P_id)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.BookId }, new { @class = "btn btn-warning" })
+    <a class="btn btn-dark" asp-action="Index">Wróć do listy</a>
+    @Html.ActionLink("Usuń", "Delete", new { id = Model.BookId }, new { @class = "btn btn-danger" })
+</div>

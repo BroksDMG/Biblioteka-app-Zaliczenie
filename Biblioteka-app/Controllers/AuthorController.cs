@@ -5,27 +5,30 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Biblioteka_app.Interfaces;
 using System.Threading.Tasks;
+using Biblioteka_app.Services;
 
 namespace Biblioteka_app.Controllers
 {
     public class AuthorController : Controller
     {
-        private readonly IAutorRepository _autorRepository;
-        public AuthorController(IAutorRepository autorRepository)
+        private readonly IAuthorsService _autorRepository;
+        public AuthorController(IAuthorsService autorRepository)
         {
             _autorRepository = autorRepository;
         }
         // GET: Author
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(_autorRepository.GetAllActive) ;
+            var allAuthors = await _autorRepository.GetAllAsync();
+            return View(allAuthors) ;
         }
 
         // GET: Author/Details/5
         public ActionResult Details(int id)
         {
-            return View(_autorRepository.Get(id));
+            return View(_autorRepository.GetByIdAsync(id));
         }
 
         // GET: Author/Create
@@ -39,7 +42,7 @@ namespace Biblioteka_app.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AuthorModel authorModel)
         {
-            _autorRepository.Add(authorModel);
+            _autorRepository.AddAsync(authorModel);
                 return RedirectToAction(nameof(Index));
             
           
@@ -48,7 +51,7 @@ namespace Biblioteka_app.Controllers
         // GET: Author/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(_autorRepository.Get(id));
+            return View(_autorRepository.GetByIdAsync(id));
         }
 
         // POST: Author/Edit/5
@@ -56,7 +59,7 @@ namespace Biblioteka_app.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, AuthorModel authorModel)
         {
-            _autorRepository.Update(id, authorModel);
+            _autorRepository.UpdateAsync(id, authorModel);
                 return RedirectToAction(nameof(Index));
            
         }
@@ -64,7 +67,7 @@ namespace Biblioteka_app.Controllers
         // GET: Author/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(_autorRepository.Get(id));
+            return View(_autorRepository.GetByIdAsync(id));
         }
 
         // POST: Author/Delete/5
@@ -72,7 +75,7 @@ namespace Biblioteka_app.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, AuthorModel authorModel)
         {
-            _autorRepository.Delete(id);
+            _autorRepository.DeleteAsync(id);
                 return RedirectToAction(nameof(Index));
             
          

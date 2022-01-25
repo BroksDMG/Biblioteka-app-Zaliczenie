@@ -11,13 +11,12 @@ using System.Threading.Tasks;
 namespace Biblioteka_app.Models
 {
    
-    public class AuthorModel:IEntityBase
+    public class PublisherModel : IEntityBase
     {
-        [HiddenInput]
         [Key]
         public int Id { get; set; }
         [DisplayName("Imię")]
-        [Required(ErrorMessage ="Pole Imię jest wymagane")]
+        [Required(ErrorMessage = "Pole Imię jest wymagane")]
         [MaxLength(50)]
         public string Name { get; set; }
         [DisplayName("Nazwisko")]
@@ -31,9 +30,10 @@ namespace Biblioteka_app.Models
         [DisplayName("Telefon")]
         [Phone]
         [Required(ErrorMessage = "Pole telefon jest wymagane")]
-        public string Phone { get; set; } 
+        public string Phone { get; set; }
         //relationship
         [Required]
-        public List<BookModel >Books{ get; set; }
+        public List<BookModel> Books { get; set; }
+
     }
 }

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Biblioteka_app.Models.CategoryModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="display-3">Categorie</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.Catname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Catname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new {  id=item.Id },new { @class="btn btn-info"})  
+                @Html.ActionLink("Usuń", "Delete", new {  id=item.Id },new { @class="btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
