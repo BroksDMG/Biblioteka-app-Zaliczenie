@@ -1,7 +1,9 @@
-﻿using Biblioteka_app.Interfaces;
+﻿using Biblioteka_app.Data.Static;
+using Biblioteka_app.Interfaces;
 using Biblioteka_app.Models;
 using Biblioteka_app.Repositories;
 using Biblioteka_app.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Biblioteka_app.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class PublisherController : Controller
 
     {
@@ -21,6 +24,7 @@ namespace Biblioteka_app.Controllers
             _PublisherRepository = publisherRepository;
         }
         // GET: PublisherController
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             var allPublishers = await _PublisherRepository.GetAllAsync();
@@ -28,6 +32,7 @@ namespace Biblioteka_app.Controllers
         }
 
         // GET: PublisherController/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             

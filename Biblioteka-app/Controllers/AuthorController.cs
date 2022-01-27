@@ -8,9 +8,12 @@ using System.Linq;
 using Biblioteka_app.Interfaces;
 using System.Threading.Tasks;
 using Biblioteka_app.Services;
+using Microsoft.AspNetCore.Authorization;
+using Biblioteka_app.Data.Static;
 
 namespace Biblioteka_app.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class AuthorController : Controller
     {
         private readonly IAuthorsService _autorRepository;
@@ -19,6 +22,7 @@ namespace Biblioteka_app.Controllers
             _autorRepository = autorRepository;
         }
         // GET: Author
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             var allAuthors = await _autorRepository.GetAllAsync();
@@ -26,6 +30,7 @@ namespace Biblioteka_app.Controllers
         }
 
         // GET: Author/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             return View(_autorRepository.GetByIdAsync(id));

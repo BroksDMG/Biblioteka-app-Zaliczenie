@@ -33,9 +33,12 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("Edytuj", "Edit", new {  id=item.Id },new { @class="btn btn-info"})  
-                @Html.ActionLink("Usuń", "Delete", new {  id=item.Id },new { @class="btn btn-danger"})
-            </td>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                }
+                </td>
         </tr>
 }
     </tbody>

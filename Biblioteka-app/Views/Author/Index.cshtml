@@ -45,11 +45,17 @@
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
             <td>
-                @Html.ActionLink("Szczegóły", "Details", new {  id=item.Id}, new { @class="btn btn-info"}) 
-                @Html.ActionLink("Edytuj", "Edit", new {  id=item.Id }, new { @class = "btn btn-warning" }) 
-                @Html.ActionLink("Usuń", "Delete", new {  id=item.Id}, new { @class = "btn btn-danger" })
-            </td>
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                }
+                </td>
         </tr>
 }
     </tbody>
 </table>
+Admin@etickets.com
+
+Coding@1234?

@@ -7,9 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Biblioteka_app.Repositories;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Biblioteka_app.Data.Static;
 
 namespace Biblioteka_app.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
@@ -18,6 +21,7 @@ namespace Biblioteka_app.Controllers
             _bookRepository = bookRepository;
         }
         // GET: BookController
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             var allMovies = await _bookRepository.GetAllActive(); 
@@ -25,12 +29,14 @@ namespace Biblioteka_app.Controllers
         }
 
         // GET: BookController/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             return View(_bookRepository.Get(id));
         }
 
         // GET: BookController/Create
+        
         public ActionResult Create()
         {
             return View(new BookModel());

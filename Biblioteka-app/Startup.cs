@@ -4,9 +4,11 @@ using Biblioteka_app.Interfaces;
 using Biblioteka_app.Models;
 using Biblioteka_app.Repositories;
 using Biblioteka_app.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +39,15 @@ namespace Biblioteka_app
             services.AddTransient<IPublishersService, PublishersService>();
             services.AddTransient<ICategoiresService, CategoriesService>();
             services.AddTransient<IBookRepository, BookRepository>();
+
+            //Authentication
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<LibraryManagerContext>();
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +68,11 @@ namespace Biblioteka_app
 
             app.UseRouting();
 
+            app.UseSession();
+            //Authentication & Authorization
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -67,6 +83,7 @@ namespace Biblioteka_app
             });
             //seed database
             AppDbInitializer.Seed(app);
+            AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
         }
     }
 }

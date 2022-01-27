@@ -1,6 +1,8 @@
-﻿using Biblioteka_app.Interfaces;
+﻿using Biblioteka_app.Data.Static;
+using Biblioteka_app.Interfaces;
 using Biblioteka_app.Models;
 using Biblioteka_app.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Biblioteka_app.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class CategoryController : Controller
     {
         private readonly ICategoiresService _CategoryRepository;
@@ -18,6 +21,7 @@ namespace Biblioteka_app.Controllers
             _CategoryRepository = categoryRepository;
         }
         // GET: CategoryController
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
 
         {

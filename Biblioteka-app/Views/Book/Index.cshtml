@@ -16,8 +16,11 @@
                             <p class="card-text">
                                 <h5 class="card-title">
                                     @item.BookName
-                                    <a asp-action="Edit" asp-route-id="@item.BookId" class="btn btn-info float-right"><i class="bi bi-pencil-square "></i></a>
-                                </h5>
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.BookId" class="btn btn-info float-right"><i class="bi bi-pencil-square "></i></a>
+                                    }
+                                    </h5>
                             </p>
                         </div>
                     </div>
@@ -47,72 +50,11 @@
 
 </div>
 <div style="position:fixed;right:25px;bottom:25px" class="text-white">
-    <a asp-action="Create" class="btn btn-success">Add New</a>
-</div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <a asp-action="Create" class="btn btn-success">Add New</a>
+    }
+    </div>
 
 
 
-
-
-
-@*<h1 class="display-3">Lista książek</h1>
-
-<p>
-    <a class="btn btn-primary" asp-action="Create">Dodaj ksiązke</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.BookName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pages)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Edition)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cat_id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.A_id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.P_id)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.BookName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pages)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Edition)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cat_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.A_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.P_id)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.BookId},new { @class="btn btn-info"}) 
-                @Html.ActionLink("Details", "Details", new {  id=item.BookId },new {@class="btn btn-warning" }) 
-                @Html.ActionLink("Delete", "Delete", new {  id=item.BookId },new { @class="btn btn-denger"})
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@

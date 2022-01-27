@@ -38,6 +38,9 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
-    <a class="btn btn-dark" asp-action="Index">Wróć do listy</a>
-</div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+    }
+        <a class="btn btn-dark" asp-action="Index">Wróć do listy</a>
+    </div>
