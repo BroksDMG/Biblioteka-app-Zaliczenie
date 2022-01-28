@@ -9,7 +9,7 @@ namespace Biblioteka_app.Interfaces
      public interface IBookRepository
     {
         BookModel Get(int bookId);
-        Task<IEnumerable<BookModel>> GetAllActive();
+        IList<BookModel> GetAllActive();
 
         void Add(BookModel book);
         void Update(int bookId, BookModel book);

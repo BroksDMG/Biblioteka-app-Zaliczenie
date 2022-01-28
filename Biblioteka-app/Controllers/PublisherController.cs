@@ -25,7 +25,7 @@ namespace Biblioteka_app.Controllers
         }
         // GET: PublisherController
         [AllowAnonymous]
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var allPublishers = await _PublisherRepository.GetAllAsync();
             return View(allPublishers);
@@ -33,14 +33,14 @@ namespace Biblioteka_app.Controllers
 
         // GET: PublisherController/Details/5
         [AllowAnonymous]
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             
-            return View(_PublisherRepository.GetByIdAsync(id));
+            return View(await _PublisherRepository.GetByIdAsync(id));
         }
 
         // GET: PublisherController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View(new PublisherModel());
         }
@@ -48,41 +48,41 @@ namespace Biblioteka_app.Controllers
         // POST: PublisherController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PublisherModel publisherModel)
+        public async Task<IActionResult> Create(PublisherModel publisherModel)
         {
-            _PublisherRepository.AddAsync(publisherModel);
+            await _PublisherRepository.AddAsync(publisherModel);
                 return RedirectToAction(nameof(Index));
          
         }
 
         // GET: PublisherController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View(_PublisherRepository.GetByIdAsync(id));
+            return View(await _PublisherRepository.GetByIdAsync(id));
         }
 
         // POST: PublisherController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, PublisherModel publisherModel)
+        public async Task< IActionResult> Edit(int id, PublisherModel publisherModel)
         {
-                _PublisherRepository.UpdateAsync(id,publisherModel);
+                await _PublisherRepository.UpdateAsync(id,publisherModel);
                 return RedirectToAction(nameof(Index));
            
         }
 
         // GET: PublisherController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View(_PublisherRepository.GetByIdAsync(id));
+            return View(await _PublisherRepository.GetByIdAsync(id));
         }
 
         // POST: PublisherController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, PublisherModel publisherModel)
+        public async Task<ActionResult> Delete(int id, PublisherModel publisherModel)
         {
-             _PublisherRepository.DeleteAsync(id);
+             await _PublisherRepository.DeleteAsync(id);
                 return RedirectToAction(nameof(Index));
            
         }

@@ -22,7 +22,7 @@ namespace Biblioteka_app.Controllers
         }
         // GET: CategoryController
         [AllowAnonymous]
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
 
         {
             var allCategory =await _CategoryRepository.GetAllAsync();
@@ -30,7 +30,7 @@ namespace Biblioteka_app.Controllers
         }
 
         // GET: CategoryController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View(new CategoryModel());
         }
@@ -38,42 +38,42 @@ namespace Biblioteka_app.Controllers
         // POST: CategoryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CategoryModel categoryModel)
+        public async Task<IActionResult> Create(CategoryModel categoryModel)
         {
-               _CategoryRepository.AddAsync(categoryModel);
+               await _CategoryRepository.AddAsync(categoryModel);
                 return RedirectToAction(nameof(Index));
             
             
         }
 
         // GET: CategoryController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View(_CategoryRepository.GetByIdAsync(id));
+            return View(await _CategoryRepository.GetByIdAsync(id));
         }
 
         // POST: CategoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, CategoryModel categoryModel)
+        public async Task<IActionResult> Edit(int id, CategoryModel categoryModel)
         {
-              _CategoryRepository.UpdateAsync(id,categoryModel);
+             await _CategoryRepository.UpdateAsync(id,categoryModel);
                 return RedirectToAction(nameof(Index));
             
         }
 
         // GET: CategoryController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View(_CategoryRepository.GetByIdAsync(id));
+            return View(await _CategoryRepository.GetByIdAsync(id));
         }
 
         // POST: CategoryController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, CategoryModel categoryModel)
+        public async Task<IActionResult> Delete(int id, CategoryModel categoryModel)
         {
-                _CategoryRepository.DeleteAsync(id);
+               await _CategoryRepository.DeleteAsync(id);
                 return RedirectToAction(nameof(Index));
            
         }

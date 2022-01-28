@@ -13,6 +13,7 @@ using Biblioteka_app.Data.Static;
 namespace Biblioteka_app.Controllers
 {
     [Authorize(Roles = UserRoles.Admin)]
+
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
@@ -22,14 +23,18 @@ namespace Biblioteka_app.Controllers
         }
         // GET: BookController
         [AllowAnonymous]
-        public async Task<ActionResult> Index()
+
+
+        public  ActionResult Index()
         {
-            var allMovies = await _bookRepository.GetAllActive(); 
+            var allMovies =  _bookRepository.GetAllActive(); 
             return View(allMovies);
         }
 
         // GET: BookController/Details/5
         [AllowAnonymous]
+        [HttpGet]
+       
         public ActionResult Details(int id)
         {
             return View(_bookRepository.Get(id));

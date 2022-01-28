@@ -15,9 +15,9 @@ namespace Biblioteka_app.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<BookModel>> GetAllActive()
+        public  IList<BookModel> GetAllActive()
         {
-            var resul = await _context.Books.Include(am=>am.AuthorModel).Include(cm=>cm.CategoryModel).Include(pm=>pm.PublisherModel).ToListAsync();
+            var resul =  _context.Books.Include(am=>am.AuthorModel).Include(cm=>cm.CategoryModel).Include(pm=>pm.PublisherModel).ToList();
             return resul;
         }
         public BookModel Get(int bookId)=>_context.Books.SingleOrDefault(x => x.BookId == bookId);

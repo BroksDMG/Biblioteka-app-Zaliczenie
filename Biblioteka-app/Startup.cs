@@ -35,7 +35,7 @@ namespace Biblioteka_app
             services.AddControllersWithViews();
             services.AddDbContext<LibraryManagerContext>(options1 =>
                 options1.UseSqlServer(Configuration.GetConnectionString("LibraryManagerDatabase")));
-            services.AddTransient<IAuthorsService, AuthorsService>();
+            services.AddScoped<IAuthorsService, AuthorsService>();
             services.AddTransient<IPublishersService, PublishersService>();
             services.AddTransient<ICategoiresService, CategoriesService>();
             services.AddTransient<IBookRepository, BookRepository>();

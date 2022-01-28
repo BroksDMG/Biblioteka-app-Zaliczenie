@@ -31,13 +31,13 @@ namespace Biblioteka_app.Controllers
 
         // GET: Author/Details/5
         [AllowAnonymous]
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View(_autorRepository.GetByIdAsync(id));
+            return View(await _autorRepository.GetByIdAsync(id));
         }
 
         // GET: Author/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View(new AuthorModel());
         }
@@ -45,42 +45,42 @@ namespace Biblioteka_app.Controllers
         // POST: Author/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AuthorModel authorModel)
+        public async Task<IActionResult> Create(AuthorModel authorModel)
         {
-            _autorRepository.AddAsync(authorModel);
+           await _autorRepository.AddAsync(authorModel);
                 return RedirectToAction(nameof(Index));
             
           
         }
 
         // GET: Author/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View(_autorRepository.GetByIdAsync(id));
+            return View(await _autorRepository.GetByIdAsync(id));
         }
 
         // POST: Author/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, AuthorModel authorModel)
+        public async Task<IActionResult> Edit(int id, AuthorModel authorModel)
         {
-            _autorRepository.UpdateAsync(id, authorModel);
+           await _autorRepository.UpdateAsync(id, authorModel);
                 return RedirectToAction(nameof(Index));
            
         }
 
         // GET: Author/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return View(_autorRepository.GetByIdAsync(id));
+            return View(await _autorRepository.GetByIdAsync(id));
         }
 
         // POST: Author/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, AuthorModel authorModel)
+        public async Task<IActionResult> Delete(int id, AuthorModel authorModel)
         {
-            _autorRepository.DeleteAsync(id);
+            await _autorRepository.DeleteAsync(id);
                 return RedirectToAction(nameof(Index));
             
          
